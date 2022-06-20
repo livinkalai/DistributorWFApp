@@ -13,12 +13,14 @@ export class DistributorDashboardComponent implements OnInit {
   showCompleteDialog: boolean = false;
   tempData: any = { inprogressTextVal: null, inprogressFileVal: null, isCompleteChecked: false, fileToUpload: File }
   selectedOrderInfo: Order = null;
+
   constructor(private distributorService: DistributorService) { }
 
   ngOnInit(): void {
     this.distributors = this.distributorService.GetDistributorsOrderData();
   }
 
+  //#region - Private Methods
   getOrderInfoById(distributor: any, ColID: number) {
     if (distributor) {
       if (!distributor.OrdersInfo) {
@@ -33,7 +35,6 @@ export class DistributorDashboardComponent implements OnInit {
     }
   }
 
-
   getStatusClass(distributor: any, ColID: number) {
     let orderInfo: any = this.getOrderInfoById(distributor, ColID);
     let status: any = {};
@@ -43,12 +44,15 @@ export class DistributorDashboardComponent implements OnInit {
     return status == Status.Completed ? "completed" : status == Status.InProgress ? "inprogress" : "open";
   }
 
-  handleFileInput(target: any) {
-    let files: FileList = target.files;
-    if (files)
-      this.tempData.fileToUpload = files.item(0);
+  resetHelperValues() {
+    this.showInProgressDialog = false;
+    this.showCompleteDialog = false;
+    this.selectedOrderInfo = null;
+    this.tempData.isCompleteChecked = false;
   }
+  //#endregion
 
+  //#region - UI Events
   onDblClickStatusBtn(distributor: any, ColID: number) {
     let orderInfo: any = this.getOrderInfoById(distributor, ColID);
     if (orderInfo) {
@@ -71,10 +75,10 @@ export class DistributorDashboardComponent implements OnInit {
     this.resetHelperValues();
   }
 
-  resetHelperValues() {
-    this.showInProgressDialog = false;
-    this.showCompleteDialog = false;
-    this.selectedOrderInfo = null;
-    this.tempData.isCompleteChecked = false;
+  handleFileInput(target: any) {
+    let files: FileList = target.files;
+    if (files)
+      this.tempData.fileToUpload = files.item(0);
   }
+  //#endregion
 }
