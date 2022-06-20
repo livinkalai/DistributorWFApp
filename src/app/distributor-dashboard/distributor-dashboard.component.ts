@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { Distributor, Status } from '../models/distributor';
+import { Distributor, Order, Status } from '../models/distributor';
 import { DistributorService } from './distributor.service';
 
 @Component({
@@ -8,11 +8,11 @@ import { DistributorService } from './distributor.service';
   styleUrls: ['./distributor-dashboard.component.css']
 })
 export class DistributorDashboardComponent implements OnInit {
-  distributors: any[] = [];
+  distributors: Distributor[] = [];
   showInProgressDialog: boolean = false;
   showCompleteDialog: boolean = false;
   tempData: any = { inprogressTextVal: null, inprogressFileVal: null, isCompleteChecked: false, fileToUpload: File }
-  selectedOrderInfo: any = null;
+  selectedOrderInfo: Order = null;
   constructor(private distributorService: DistributorService) { }
 
   ngOnInit(): void {
