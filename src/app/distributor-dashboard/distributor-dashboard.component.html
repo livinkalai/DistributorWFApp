@@ -1,0 +1,119 @@
+<kendo-grid [data]="distributors">
+  <kendo-grid-column field="DistributorName" title="Distributors">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <div>{{dataItem.Name}}</div>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="New Order">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <ng-container>
+        <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,1)" [class]="getStatusClass(dataItem, 1)" />
+      </ng-container>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Send SQ">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,2)" [class]="getStatusClass(dataItem, 2)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Order Confirmed">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,3)" [class]="getStatusClass(dataItem, 3)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Send OC">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,4)" [class]="getStatusClass(dataItem, 4)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Send PI">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,5)" [class]="getStatusClass(dataItem, 5)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Payment Received">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,6)" [class]="getStatusClass(dataItem, 6)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Send Updated OC">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,7)" [class]="getStatusClass(dataItem, 7)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Prepare DN & PL">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,8)" [class]="getStatusClass(dataItem, 8)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Pack Order">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,9)" [class]="getStatusClass(dataItem, 9)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Send INV & Shipping Docs">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,10)" [class]="getStatusClass(dataItem, 10)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Executed Pickup Date">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,11)" [class]="getStatusClass(dataItem, 11)" />
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Order Pickup">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="button" class="status-btn" (dblclick)="onDblClickStatusBtn(dataItem,12)" [class]="getStatusClass(dataItem, 12)" />
+    </ng-template>
+  </kendo-grid-column>
+</kendo-grid>
+
+<kendo-dialog title="Move to Inprogress"
+              *ngIf="showInProgressDialog"
+              (close)="closeDialog()"
+              [minWidth]="250"
+              [width]="450">
+  <form>
+    <table>
+      <tr>
+        <td><label for="inprogressTextVal">Enter Text</label></td>
+        <td>
+          <input type="text" required id="inprogressTextVal" name="inprogressTextVal" [(ngModel)]="tempData.inprogressTextVal" /><br />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="inprogressFileVal">Choose File</label>
+        </td>
+        <td>
+          <input type="file" id="inprogressFileVal"
+                 name="inprogressFileVal"
+                 (change)="handleFileInput($event.target)" />
+        </td>
+      </tr>
+    </table>
+
+  </form>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeDialog('inprogress')">Add</button>
+    <button kendoButton (click)="closeDialog()" themeColor="primary">
+      Cancel
+    </button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="Move to Completed"
+              *ngIf="showCompleteDialog"
+              (close)="closeDialog()"
+              [minWidth]="250"
+              [width]="450">
+  <form>
+    <input type="checkbox" id="isCompleteChkBox" name="isCompleteChkBox" [(ngModel)]="tempData.isCompleteChecked" /> Is Complete
+  </form>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeDialog('completed')">Update</button>
+    <button kendoButton (click)="closeDialog()" themeColor="primary">
+      Cancel
+    </button>
+  </kendo-dialog-actions>
+</kendo-dialog>

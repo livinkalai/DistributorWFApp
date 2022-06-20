@@ -1,0 +1,31 @@
+::ng-deep .k-grid th, ::ng-deep .k-grid td {
+  padding: 0px 5px 0px 0px !important;
+  text-align: center !important;
+  font-size: 10px;
+}
+
+::ng-deep .k-grid thead {
+  text-align: center !important;
+  font-weight: bold;
+}
+
+.status-btn {
+  background: grey;
+  width: 100%;
+}
+
+  .status-btn.open {
+    opacity: 0.5;
+  }
+
+  .status-btn.inprogress {
+    background: orange;
+  }
+
+  .status-btn.completed {
+    background: green;
+  }
+
+.col-title {
+  font-weight: bold;
+}
